@@ -1,0 +1,32 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace files
+go.work
+go.work.sum
+
+# Go modules
+go.sum
+
+# Build and package directories
+bin/
+pkg/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+.DS_Store
