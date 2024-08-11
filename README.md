@@ -18,13 +18,23 @@ You can interact with the Signature Service using tools like Postman or cURL. Be
     Creates a new device entry in the system.
     Endpoint: POST /api/v0/devices/create
     Example:
-    `curl -X POST http://localhost:8080/api/v0/devices/create`
+    ```bash
+    curl -X POST http://localhost:8080/api/v0/devices/create \
+    -H "Content-Type: application/json" \
+    -d '{
+        "algorithm": "RSA"
+    }'
 
 2. Sign a Device
     Sign into a specific device using its ID.
     Endpoint: POST /api/v0/devices/{device_id}/sign
     Example:
-    `curl -X POST curl -X POST http://localhost:8080/api/v0/devices/{id}/sign`
+    ```bash
+    curl -X POST http://localhost:8080/api/v0/devices/{id}/sign \
+    -H "Content-Type: application/json" \
+    -d '{
+        "data": "transactiontest"
+    }'
 
 3. Verify a signed device 
     Verify if a device has been signed by checking its status.
@@ -46,6 +56,7 @@ You can interact with the Signature Service using tools like Postman or cURL. Be
 #### QA / Testing
 
 - `go test ./...`
+
 
 
 ```bash

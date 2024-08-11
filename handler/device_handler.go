@@ -20,6 +20,7 @@ type CreateSignatureDeviceResponse struct {
 }
 
 func CreateSignatureDevice(w http.ResponseWriter, r *http.Request) {
+
 	var req CreateSignatureDeviceRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

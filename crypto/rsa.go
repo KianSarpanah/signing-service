@@ -1,6 +1,7 @@
 package crypto
 
 import (
+	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha256"
@@ -22,7 +23,7 @@ func NewRSASigner() (*RSASigner, error) {
 
 func (s *RSASigner) Sign(data string) (string, error) {
 	hashed := sha256.Sum256([]byte(data))
-	signature, err := rsa.SignPKCS1v15(rand.Reader, s.privateKey, 0, hashed[:])
+	signature, err := rsa.SignPKCS1v15(rand.Reader, s.privateKey, crypto.SHA256, hashed[:])
 	if err != nil {
 		return "", err
 	}
