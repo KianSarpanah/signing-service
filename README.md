@@ -4,10 +4,14 @@
 
 The **Signature Service** is a simple Go-based service designed to manage devices by creating, signing, and verifying them. This service includes API endpoints for interacting with the devices and checking the application’s health.
 
-## Quick Start
+
 
 ### Prerequisites:
 - Language **Go**
+
+## Quick Start
+
+`go run main.go`
 
 ### API Endpoints
 
@@ -55,9 +59,4 @@ You can interact with the Signature Service using tools like Postman or cURL. Be
 
 #### QA / Testing
 
-- `go test ./...`
-
-
-
-```bash
-go run main.go
+- `go test ./... -v`

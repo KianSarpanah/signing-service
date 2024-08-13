@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"signaturesign/crypto"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
@@ -19,7 +18,7 @@ type CreateSignatureDeviceResponse struct {
 	PublicKey string `json:"public_key"`
 }
 
-func CreateSignatureDevice(w http.ResponseWriter, r *http.Request) {
+func HandleCreateSignatureDevice(w http.ResponseWriter, r *http.Request) {
 
 	var req CreateSignatureDeviceRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -28,7 +27,7 @@ func CreateSignatureDevice(w http.ResponseWriter, r *http.Request) {
 	}
 
 	id := uuid.New().String()
-	device, err := crypto.NewDevice(id, req.Algorithm, req.Label)
+	device, err := NewDevice(id, req.Algorithm, req.Label)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -43,16 +42,16 @@ func CreateSignatureDevice(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-func ListDevices(w http.ResponseWriter, r *http.Request) {
-	devices := crypto.GetAllDevices()
+func HandleListDevices(w http.ResponseWriter, r *http.Request) {
+	devices := GetAllDevices()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(devices)
 }
 
-func GetDevice(w http.ResponseWriter, r *http.Request) {
+func HandleGetDevice(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	device, err := crypto.GetDeviceByID(id)
+	device, err := GetDeviceByID(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return

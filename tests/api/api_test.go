@@ -11,7 +11,7 @@ import (
 )
 
 // Test the CreateSignatureDevice endpoint
-func TestCreateSignatureDevice(t *testing.T) {
+func TestHandleCreateSignatureDevice(t *testing.T) {
 	reqBody := `{"algorithm":"ECC","label":"testLabel"}`
 	req, err := http.NewRequest("POST", "/api/v0/devices/create", bytes.NewBufferString(reqBody))
 	if err != nil {
@@ -40,7 +40,7 @@ func TestCreateSignatureDevice(t *testing.T) {
 }
 
 // Test the SignTransaction endpoint
-func TestSignTransaction(t *testing.T) {
+func TestHandleSignTransaction(t *testing.T) {
 	// Create a new device first
 	reqBody := `{"algorithm":"ECC","label":"testLabel"}`
 	req, err := http.NewRequest("POST", "/api/v0/devices/create", bytes.NewBufferString(reqBody))
@@ -92,7 +92,7 @@ func TestSignTransaction(t *testing.T) {
 }
 
 // Test the ListDevices endpoint
-func TestListDevices(t *testing.T) {
+func TestHandleListDevices(t *testing.T) {
 	req, err := http.NewRequest("GET", "/api/v0/devices", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -126,7 +126,7 @@ func TestListDevices(t *testing.T) {
 }
 
 // Test the GetDevice endpoint
-func TestGetDevice(t *testing.T) {
+func TestHandleGetDevice(t *testing.T) {
 	// Create a new device first
 	reqBody := `{"algorithm":"ECC","label":"testLabel"}`
 	req, err := http.NewRequest("POST", "/api/v0/devices/create", bytes.NewBufferString(reqBody))

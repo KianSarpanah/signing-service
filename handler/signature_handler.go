@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"signaturesign/crypto"
 
 	"github.com/gorilla/mux"
 )
@@ -17,19 +16,24 @@ type SignTransactionResponse struct {
 	SignedData string `json:"signed_data"`
 }
 
-func SignTransaction(w http.ResponseWriter, r *http.Request) {
+func HandleSignTransaction(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
 	var req SignTransactionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "Invalid request payload", http.StatusBadRequest)
 		return
 	}
 
-	signature, signedData, err := crypto.SignTransaction(id, req.Data)
+	// Assuming SignTransaction is a function from another package
+	signature, signedData, err := SignTransaction(id, req.Data)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		if err.Error() == "device not found" {
+			http.Error(w, err.Error(), http.StatusNotFound)
+		} else {
+			http.Error(w, "Failed to sign transaction", http.StatusInternalServerError)
+		}
 		return
 	}
 
@@ -39,5 +43,7 @@ func SignTransaction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+	}
 }
