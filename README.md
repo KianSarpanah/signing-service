@@ -55,7 +55,7 @@ You can interact with the Signature Service using tools like Postman or cURL. Be
     Retrieve a list of all devices that have been signed.
     Endpoint: GET /devices
     Example:
-    `curl -X GET http://localhost:8080/devices`
+    `curl -X GET http://localhost:8080/api/v0/devices`
 
 #### QA / Testing
 
