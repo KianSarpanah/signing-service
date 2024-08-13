@@ -60,3 +60,12 @@ You can interact with the Signature Service using tools like Postman or cURL. Be
 #### QA / Testing
 
 - `go test ./... -v`
+
+
+#### Note
+
+1. This is a quick solution and is open to refactoring.
+2. To prepare this project for production, we can consider the following enhancements: 
+• Implementing persistent storage, such as a database. 
+• Containerizing the application (e.g., using Docker). 
+• Utilizing virtual environments to manage dependencies.
